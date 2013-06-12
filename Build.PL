@@ -15,8 +15,8 @@ my $builder = Module::Build->new(
         'Test::More' => 0,
     },
     requires => {
-        'Catmandu' => '0.2003'
-        'Spreadsheet::WriteExcel' => '2.37'
+        'Catmandu' => '0.2003',
+        'Spreadsheet::WriteExcel' => '2.37',
     },
     add_to_cleanup     => [ 'Catmandu-Exporter-XLS-*' ],
     create_makefile_pl => 'traditional',
