@@ -12,6 +12,7 @@ my $builder = Module::Build->new(
     requires => {
         'perl' => '5.10.1',
         'Catmandu' => '0.2003',
+        'namespace::clean' => '0.24',
         'Spreadsheet::WriteExcel' => '2.37',
     },
     add_to_cleanup     => [ 'Catmandu-XLS-*' ],
