@@ -2,7 +2,7 @@ package Catmandu::XLS;
 
 =head1 NAME
 
-Catmandu::XLS - modules for working with Excel .xls files
+Catmandu::XLS - modules for working with Excel .xls and .xlsx files
 
 =head1 VERSION
 
@@ -27,6 +27,8 @@ Nicolas Steenlant, C<< <nicolas.steenlant at ugent.be> >>
 =head1 CONTRIBUTOR
 
 Vitali Peil, C<< <vitali.peil at uni-bielefeld.de> >>
+
+Johann Rolschewski, C<< <rolschewski at gmail.com> >>
 
 =cut
 

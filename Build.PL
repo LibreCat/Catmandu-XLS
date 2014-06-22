@@ -13,7 +13,9 @@ my $builder = Module::Build->new(
         'perl' => '5.10.1',
         'Catmandu' => '0.2003',
         'namespace::clean' => '0.24',
+        'Spreadsheet::ParseExcel' => '0.65',
         'Spreadsheet::WriteExcel' => '2.37',
+        'Spreadsheet::XLSX' => '0.13'
     },
     add_to_cleanup     => [ 'Catmandu-XLS-*' ],
     create_makefile_pl => 'traditional',
