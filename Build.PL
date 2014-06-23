@@ -12,6 +12,7 @@ my $builder = Module::Build->new(
     requires => {
         'perl' => '5.10.1',
         'Catmandu' => '0.2003',
+        'Excel::Writer::XLSX' => '0.77',
         'namespace::clean' => '0.24',
         'Spreadsheet::ParseExcel' => '0.65',
         'Spreadsheet::WriteExcel' => '2.37',
