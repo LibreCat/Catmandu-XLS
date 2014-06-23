@@ -15,6 +15,7 @@ After installing, you can find documentation for this module with the
 perldoc command.
 
     perldoc Catmandu::Exporter::XLS
+    perldoc Catmandu::Exporter::XLSX
     perldoc Catmandu::Importer::XLS
     perldoc Catmandu::Importer::XLSX
 
