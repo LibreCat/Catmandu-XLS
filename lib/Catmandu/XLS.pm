@@ -16,7 +16,13 @@ our $VERSION = '0.03';
 
 =over
 
+=item * L<Catmandu::Importer::XLS>
+
+=item * L<Catmandu::Importer::XLSX>
+
 =item * L<Catmandu::Exporter::XLS>
+
+=item * L<Catmandu::Exporter::XLSX>
 
 =back
 
@@ -31,5 +37,12 @@ Vitali Peil, C<< <vitali.peil at uni-bielefeld.de> >>
 Johann Rolschewski, C<< <rolschewski at gmail.com> >>
 
 =cut
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2013 by Nicolas Steenlant.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 1;
