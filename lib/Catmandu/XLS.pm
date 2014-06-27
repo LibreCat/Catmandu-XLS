@@ -4,10 +4,6 @@ package Catmandu::XLS;
 
 Catmandu::XLS - modules for working with Excel .xls and .xlsx files
 
-=head1 VERSION
-
-Version 0.03
-
 =cut
 
 our $VERSION = '0.03';
