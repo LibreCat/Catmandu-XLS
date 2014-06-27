@@ -2,10 +2,6 @@
 
 Catmandu::XLS - modules for working with Excel .xls and .xlsx files
 
-# VERSION
-
-Version 0.03
-
 # MODULES
 
 - [Catmandu::Importer::XLS](https://metacpan.org/pod/Catmandu::Importer::XLS)

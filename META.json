@@ -59,7 +59,7 @@
          "web" : "https://github.com/LibreCat/Catmandu-XLS"
       }
    },
-   "version" : "0.03",
+   "version" : "0.04",
    "x_contributors" : [
       "Johann Rolschewski <rolschewski@gmail.com>",
       "vpeil <vitali.peil@uni-bielefeld.de>"

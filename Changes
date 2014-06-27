@@ -1,6 +1,8 @@
 Revision history for Catmandu-XLS
 
 {{$NEXT}}
+
+0.04  2014-06-27 09:13:18 CEST
   - add importer for XLS and XLSX files.
   - add test for importer
   - add XLS and XLSX test files
