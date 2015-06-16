@@ -2,6 +2,26 @@
 
 Catmandu::XLS - modules for working with Excel .xls and .xlsx files
 
+# SYNPOSIS
+
+        # Convert Excel to CSV
+    $ catmandu convert XLS to CSV < ./t/test.xls > test.csv
+    $ catmandu convert XLSX to CSV < ./t/test.xlsx > test.csv
+
+        # Convert Excel to JSON
+        $ catmandu convert XLS to JSON
+        $ catmandu convert XLS 
+
+        # Convert Excel to JSON providing own field names
+        $ catmandu convert XLS --field title,name,isbn
+
+        # Convert Excel to JSON using the column coordinates as field names
+        $ catmandu convert XLS --as_columns 1
+
+        # Convert CSV to Excel
+    $ catmandu convert CSV to XLS < test.csv
+    $ catmandu convert CSV to XLSX  < test.csv
+
 # MODULES
 
 - [Catmandu::Importer::XLS](https://metacpan.org/pod/Catmandu::Importer::XLS)

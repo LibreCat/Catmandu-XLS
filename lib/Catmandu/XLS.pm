@@ -8,6 +8,26 @@ Catmandu::XLS - modules for working with Excel .xls and .xlsx files
 
 our $VERSION = '0.04';
 
+=head1 SYNPOSIS
+
+    # Convert Excel to CSV
+    $ catmandu convert XLS to CSV < ./t/test.xls > test.csv
+    $ catmandu convert XLSX to CSV < ./t/test.xlsx > test.csv
+
+    # Convert Excel to JSON
+    $ catmandu convert XLS to JSON
+    $ catmandu convert XLS 
+
+    # Convert Excel to JSON providing own field names
+    $ catmandu convert XLS --field title,name,isbn
+
+    # Convert Excel to JSON using the column coordinates as field names
+    $ catmandu convert XLS --as_columns 1
+
+    # Convert CSV to Excel
+    $ catmandu convert CSV to XLS < test.csv
+    $ catmandu convert CSV to XLSX  < test.csv
+
 =head1 MODULES
 
 =over
@@ -31,6 +51,8 @@ Nicolas Steenlant, C<< <nicolas.steenlant at ugent.be> >>
 Vitali Peil, C<< <vitali.peil at uni-bielefeld.de> >>
 
 Johann Rolschewski, C<< <rolschewski at gmail.com> >>
+
+Patrick Hochstenbach, C<< <patrick.hochstenbach at ugent.be> >>
 
 =cut
 

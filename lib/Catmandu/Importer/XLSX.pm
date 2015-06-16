@@ -4,10 +4,12 @@ use namespace::clean;
 use Catmandu::Sane;
 use Encode qw(decode);
 use Spreadsheet::XLSX;
+use Spreadsheet::ParseExcel::Utility qw(int2col);
 use Moo;
 
 with 'Catmandu::Importer';
 
+has as_columns => (is => 'ro' , default => sub { 0 });
 has xlsx => (is => 'ro', builder => '_build_xlsx');
 has fields => (
     is     => 'rw',
@@ -42,7 +44,7 @@ sub generator {
     sub {
         while ($self->_n <= $self->_row_max) {
             if (!defined $self->fields) {
-                $self->fields([$self->_get_row]);
+                $self->fields([$self->_get_cols]);
                 $self->{_n}++;
             }
             else{
@@ -75,12 +77,38 @@ sub _get_row {
     return @row;
 }
 
+sub _get_cols {
+    my ($self) = @_;
+    my @row;
+    for my $col ( $self->_col_min .. $self->_col_max ) {
+
+        if ($self->as_columns) {
+            push(@row,int2col($col));
+        }
+        else {
+            my $cell = $self->xlsx->{Cells}[$self->_n][$col];
+            if ($cell) {
+                push(@row, decode('UTF-8',$cell->{Val}));
+            }
+            else{
+                push(@row, undef);            
+            }
+        }
+    }
+    return @row;
+}
+
+
 =head1 NAME
 
 Catmandu::Importer::XLSX - Package that imports XLSX files
 
 =head1 SYNOPSIS
 
+    # On the command line
+    $ catmandu convert XLSX < ./t/test.xls
+
+    # Or in Perl
     use Catmandu::Importer::XLSX;
 
     my $importer = Catmandu::Importer::XLSX->new(file => "./t/test.xlsx");
@@ -96,6 +124,8 @@ Catmandu::Importer::XLSX - Package that imports XLSX files
 
 Create a new XLSX importer for $filename. Use STDIN when no filename is given. The
 object fields are read from the XLS header line or given via the 'fields' parameter.
+When the as_columns option is provided , then the fields are read as column coordinates
+(A,B,C,...).
 
 Only the first worksheet from the Excel workbook is imported.
 
