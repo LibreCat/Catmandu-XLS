@@ -9,7 +9,7 @@ use Moo;
 
 with 'Catmandu::Importer';
 
-has as_columns => (is => 'ro' , default => sub { 0 });
+has columns => (is => 'ro' , default => sub { 0 });
 has xlsx => (is => 'ro', builder => '_build_xlsx');
 has fields => (
     is     => 'rw',
@@ -82,7 +82,7 @@ sub _get_cols {
     my @row;
     for my $col ( $self->_col_min .. $self->_col_max ) {
 
-        if ($self->as_columns) {
+        if ($self->columns) {
             push(@row,int2col($col));
         }
         else {
@@ -120,12 +120,12 @@ Catmandu::Importer::XLSX - Package that imports XLSX files
 
 =head1 METHODS
 
-=head2 new(file => $filename [, fields => \@fields"])
+=head2 new(file => $filename [, fields => \@fields", columns => 1])
 
-Create a new XLSX importer for $filename. Use STDIN when no filename is given. The
-object fields are read from the XLS header line or given via the 'fields' parameter.
-When the as_columns option is provided , then the fields are read as column coordinates
-(A,B,C,...).
+Create a new XLSX importer for $filename. Use STDIN when no filename is 
+given. The object fields are read from the XLS header line or given via the 
+'fields' parameter. When the 'columns' option is provided , then the fields 
+are read as column coordinates (A,B,C,...).
 
 Only the first worksheet from the Excel workbook is imported.
 
