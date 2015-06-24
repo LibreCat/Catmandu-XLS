@@ -1,6 +1,8 @@
 Revision history for Catmandu-XLS
 
 {{$NEXT}}
+  - adding columns option
+  - adding header option
 
 0.04  2014-06-27 09:13:18 CEST
   - add importer for XLS and XLSX files.

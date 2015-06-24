@@ -62,6 +62,7 @@
    },
    "version" : "0.04",
    "x_contributors" : [
+      "Johann Rolschewski <jorol@cpan.org>",
       "Johann Rolschewski <rolschewski@gmail.com>",
       "Nicolas Steenlant <nicolas.steenlant@ugent.be>",
       "Patrick Hochstenbach <patrick.hochstenbach@ugent.be>",
