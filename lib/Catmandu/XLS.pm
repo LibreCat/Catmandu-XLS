@@ -22,7 +22,7 @@ our $VERSION = '0.04';
     $ catmandu convert XLS --field title,name,isbn
 
     # Convert Excel to JSON using the column coordinates as field names
-    $ catmandu convert XLS --as_columns 1
+    $ catmandu convert XLS --columns 1
 
     # Convert CSV to Excel
     $ catmandu convert CSV to XLS < test.csv
@@ -50,7 +50,7 @@ Nicolas Steenlant, C<< <nicolas.steenlant at ugent.be> >>
 
 Vitali Peil, C<< <vitali.peil at uni-bielefeld.de> >>
 
-Johann Rolschewski, C<< <rolschewski at gmail.com> >>
+Johann Rolschewski, C<< <jorol at cpan.org> >>
 
 Patrick Hochstenbach, C<< <patrick.hochstenbach at ugent.be> >>
 
