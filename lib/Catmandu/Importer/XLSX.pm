@@ -132,7 +132,7 @@ Catmandu::Importer::XLSX - Package that imports XLSX files
     # Or in Perl
     use Catmandu::Importer::XLSX;
 
-    my $importer = Catmandu::Importer::XLSX->new(file => "./t/test.xls");
+    my $importer = Catmandu::Importer::XLSX->new(file => "./t/test.xlsx");
 
     my $n = $importer->each(sub {
         my $hashref = $_[0];
