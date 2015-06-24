@@ -6,7 +6,7 @@ Catmandu::XLS - modules for working with Excel .xls and .xlsx files
 
 =cut
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 =head1 SYNPOSIS
 

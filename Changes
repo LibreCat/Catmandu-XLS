@@ -1,6 +1,8 @@
 Revision history for Catmandu-XLS
 
 {{$NEXT}}
+
+0.05  2015-06-24 16:01:43 CEST
   - adding columns option
   - adding header option
 
