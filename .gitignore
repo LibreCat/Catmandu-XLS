@@ -13,3 +13,4 @@ MYMETA.*
 Catmandu-XLS-*
 !*.t
 !META.json
+local
