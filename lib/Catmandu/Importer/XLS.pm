@@ -8,8 +8,9 @@ use Moo;
 
 with 'Catmandu::Importer';
 
-has columns => (is => 'ro' , default => sub { 0 });
 has xls => (is => 'ro', builder => '_build_xls');
+has header => (is => 'ro', default => sub { 1 });
+has columns => (is => 'ro' , default => sub { 0 });
 has fields => (
     is     => 'rw',
     coerce => sub {
@@ -24,6 +25,29 @@ has _row_min => (is => 'rw');
 has _row_max => (is => 'rw');
 has _col_min => (is => 'rw');
 has _col_max => (is => 'rw');
+
+sub BUILD {
+    my $self = shift;
+
+    if ( $self->header ) {
+        if ( $self->fields ) {
+            $self->{_n}++;
+        }
+        elsif ( $self->columns ) {
+            $self->fields([$self->_get_cols]);
+            $self->{_n}++;
+        }
+        else {
+            $self->fields([$self->_get_row]);
+            $self->{_n}++;
+        }
+    }
+    else {
+        if ( !$self->fields || $self->columns ) {
+            $self->fields([$self->_get_cols]);
+        }
+    }
+}
 
 sub _build_xls {
     my ($self) = @_;
@@ -41,20 +65,14 @@ sub generator {
     my ($self) = @_;
     sub {
         while ($self->_n <= $self->_row_max) {
-            if (!defined $self->fields) {
-                $self->fields([$self->_get_cols]);
-                $self->{_n}++;
-            }
-            else{
-                my @data = $self->_get_row();
-                $self->{_n}++;
-                my @fields = @{$self->fields()};
-                my %hash = map { 
-                    my $key = shift @fields;
-                    defined $_  ? ($key => $_) : ()
-                    } @data;
-                return \%hash;
-            }
+            my @data = $self->_get_row();
+            $self->{_n}++;
+            my @fields = @{$self->fields()};
+            my %hash = map { 
+                my $key = shift @fields;
+                defined $_  ? ($key => $_) : ()
+                } @data;
+            return \%hash;
         }
         return;
     }
@@ -81,7 +99,7 @@ sub _get_cols {
     my @row;
     for my $col ( $self->_col_min .. $self->_col_max ) {
        
-        if ($self->columns) {
+        if (!$self->header || $self->columns) {
             push(@row,int2col($col));
         }
         else {
@@ -105,6 +123,9 @@ Catmandu::Importer::XLS - Package that imports XLS files
 
     # On the command line
     $ catmandu convert XLS < ./t/test.xls
+    $ catmandu convert XLS --header 0 < ./t/test.xls
+    $ catmandu convert XLS --fields 1,2,3 < ./t/test.xls
+    $ catmandu convert XLS --columns 1 < ./t/test.xls
 
     # Or in Perl
     use Catmandu::Importer::XLS;
@@ -116,30 +137,44 @@ Catmandu::Importer::XLS - Package that imports XLS files
         # ...
     });
 
-=head1 METHODS
+=head1 DESCRIPTION
 
-=head2 new(file => $filename [, fields => \@fields, columns => 0])
-
-Create a new XLS importer for $filename. Use STDIN when no filename is 
-given. The object fields are read from the first XLS row or given via the 
-'fields' parameter. When the 'columns' option is provided, then the fields 
-are read as column coordinates (A,B,C,...).
+L<Catmandu> importer for XLS files.
 
 Only the first worksheet from the Excel workbook is imported.
 
-=head2 count
+=head1 METHODS
+ 
+This module inherits all methods of L<Catmandu::Importer> and by this
+L<Catmandu::Iterable>.
+ 
+=head1 CONFIGURATION
+ 
+In addition to the configuration provided by L<Catmandu::Importer> (C<file>,
+C<fh>, etc.) the importer can be configured with the following parameters:
+ 
+=over
+ 
+=item header
 
-=head2 each(&callback)
+By default object fields are read from the XLS header line. If no header 
+line is avaiable object fields are named as column coordinates (A,B,C,...). Default: 1.
 
-=head2 ...
+=item fields
 
-Every L<Catmandu::Importer> is a L<Catmandu::Iterable> all its methods are
-inherited. The Catmandu::Importer::XLS methods are not idempotent: XLS streams
-can only be read once.
+Provide custom object field names as array, hash reference or comma-
+separated list.
+
+=item columns
+
+When the 'columns' option is provided, then the object fields are named as 
+column coordinates (A,B,C,...). Default: 0.
+ 
+=back
 
 =head1 SEE ALSO
 
-L<Catmandu::Iterable>
+L<Catmandu::Importer>, L<Catmandu::Iterable>, L<Catmandu::Importer::CSV>, L<Catmandu::Importer::XLSX>.
 
 =cut
 
