@@ -84,7 +84,7 @@ sub _get_row {
     for my $col ( $self->_col_min .. $self->_col_max ) {
         my $cell = $self->xls->get_cell( $self->_n, $col );
         if ($cell) {
-            push(@row,$cell->unformatted());
+            push(@row,$cell->value());
         }
         else{
             push(@row, undef);            
@@ -105,7 +105,7 @@ sub _get_cols {
         else {
             my $cell = $self->xls->get_cell( $self->_n, $col );
             if ($cell) {
-                push(@row,$cell->unformatted());
+                push(@row,$cell->value());
             }
             else{
                 push(@row, undef);            
