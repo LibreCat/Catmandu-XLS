@@ -7,23 +7,40 @@ use Moo;
 
 with 'Catmandu::Exporter';
 
-has xlsx => (is => 'ro', lazy => 1, builder => '_build_xlsx');
-has worksheet => (is => 'ro', lazy => 1, builder => '_build_worksheet');
-has header => (is => 'ro', default => sub { 1 });
+has xlsx      => ( is => 'ro', lazy => 1, builder => '_build_xlsx' );
+has worksheet => ( is => 'ro', lazy => 1, builder => '_build_worksheet' );
+has header => ( is => 'ro', default => sub {1} );
 has fields => (
     is     => 'rw',
     coerce => sub {
         my $fields = $_[0];
-        if (ref $fields eq 'ARRAY') { return $fields }
-        if (ref $fields eq 'HASH')  { return [sort keys %$fields] }
-        return [split ',', $fields];
+        if ( ref $fields eq 'ARRAY' ) { return $fields }
+        return [ split ',', $fields ];
     },
 );
+has columns => (
+    is     => 'rw',
+    coerce => sub {
+        my $columns = $_[0];
+        if ( ref $columns eq 'ARRAY' ) { return $columns }
+        return [ split ',', $columns ];
+    },
+);
+has _n => ( is => 'rw', default => sub {0} );
 
-our $VERSION = '0.02';
+sub BUILD {
+    my $self    = shift;
+    my $columns = $self->columns;
+    my $fields  = $self->fields;
+    if ( $fields && $columns && scalar @{$fields} != scalar @{$columns} ) {
+        Catmandu::Error->throw(
+            "arguments 'fields' and 'columns' have different number of elements"
+        );
+    }
+}
 
 sub _build_xlsx {
-    my $xlsx = Excel::Writer::XLSX->new($_[0]->fh);
+    my $xlsx = Excel::Writer::XLSX->new( $_[0]->fh );
     $xlsx;
 }
 
@@ -31,27 +48,29 @@ sub _build_worksheet {
     $_[0]->xlsx->add_worksheet;
 }
 
-sub encoding { ':raw' }
+sub encoding {':raw'}
 
 sub add {
-    my ($self, $data) = @_;
-    my $header = $self->header;
-    my $fields = $self->fields || $self->fields($data);
-    my $worksheet = $self->worksheet;
-    my $n = $self->count;
-    if ($header) {
-        if ($n == 0) {
-            for (my $i = 0; $i < @$fields; $i++) {
-                my $field = $fields->[$i];
-                $field = $header->{$field} if ref $header && defined $header->{$field};
-                $worksheet->write_string($n, $i, $field);
-            }
+    my ( $self, $data ) = @_;
+    my $fields = $self->fields || $self->fields( [ sort keys %$data ] );
+
+    if ( $self->header && $self->_n == 0 ) {
+        for ( my $i = 0; $i < @$fields; $i++ ) {
+            my $field = $self->columns ? $self->columns->[$i] : $fields->[$i];
+
+            # keep for backward compatibility (header could be a hashref)
+            $field = $self->header->{$field}
+                if ref $self->header && defined $self->header->{$field};
+            $self->worksheet->write_string( $self->_n, $i, $field );
         }
-        $n++;
+        $self->{_n}++;
     }
-    for (my $i = 0; $i < @$fields; $i++) {
-        $worksheet->write_string($n, $i, $data->{$fields->[$i]} // "");
+
+    for ( my $i = 0; $i < @$fields; $i++ ) {
+        $self->worksheet->write_string( $self->_n, $i,
+            $data->{ $fields->[$i] } // "" );
     }
+    $self->{_n}++;
 }
 
 sub commit {
@@ -62,70 +81,65 @@ sub commit {
 
 Catmandu::Exporter::XLSX - a XLSX exporter
 
-=head1 VERSION
-
-Version 0.01
-
 =head1 SYNOPSIS
 
+    # On the command line
+    $ printf "a,b,c\n1,2,3" | catmandu convert CSV to XLSX --file test.xls
+    $ printf "a,b,c\n1,2,3" | catmandu convert CSV to XLSX --file test.xls --header 0
+    $ printf "a,b,c\n1,2,3" | catmandu convert CSV to XLSX --file test.xls --fields a,c
+    $ printf "a,b,c\n1,2,3" | catmandu convert CSV to XLSX --file test.xls --fields a,c --columns ALPHA,CHARLIE
+
+    # Or in Perl
     use Catmandu::Exporter::XLSX;
 
     my $exporter = Catmandu::Exporter::XLSX->new(
-				file => 'output.xlsx',
-				fix => 'myfix.txt'
-				header => 1);
+                file => 'test.xls',
+                fields => 'a,b,c'
+                columns => 'ALPHA,BRAVO,CHARLIE'
+                header => 1);
 
-    $exporter->fields("f1,f2,f3");
-
-    # add custom header labels
-    $exporter->header({f2 => 'field two'});
-
+    $exporter->add({a => 1, b => 2, c => 3});
     $exporter->add_many($arrayref);
-    $exporter->add_many($iterator);
-    $exporter->add_many(sub { });
-
-    $exporter->add($hashref);
 
     $exporter->commit;
 
     printf "exported %d objects\n" , $exporter->count;
 
+=head1 DESCRIPTION
+
+L<Catmandu> exporter for Excel XLSX files.
+
 =head1 METHODS
 
-=head2 new(header => 0|1|HASH, fields => ARRAY|HASH|STRING)
+See L<Catmandu::Exporter>, L<Catmandu::Addable>, L<Catmandu::Fixable>, 
+L<Catmandu::Counter>, and L<Catmandu::Logger> for a full list of methods.
 
-Creates a new Catmandu::Exporter::XLSX. A header line with field names will be
-included if C<header> is set. Field names can be read from the first item
-exported or set by the fields argument (see: C<fields>).
+=head1 CONFIGURATION
+ 
+In addition to the configuration provided by L<Catmandu::Exporter> (C<file>,
+C<fh>, etc.) the importer can be configured with the following parameters:
+ 
+=over
+ 
+=item header
 
-=head2 fields($arrayref)
+Include a header line with column names, if set to 1 (default). 
 
-Set the field names by an ARRAY reference.
+=item fields
 
-=head2 fields($hashref)
+List of fields to be used as columns, given as array reference or 
+comma-separated string
 
-Set the field names by the keys of a HASH reference.
+=item columns
 
-=head2 fields($string)
-
-Set the fields by a comma delimited string.
-
-=head2 header(1)
-
-Include a header line with the field names
-
-=head2 header($hashref)
-
-Include a header line with custom field names
-
-=head2 commit
-
-Commit the changes and close the XLSX.
+List of custom culomn names, given as array reference or comma-separated 
+list. 
+ 
+=back
 
 =head1 SEE ALSO
 
-L<Catmandu::Exporter::XLS>, L<Catmandu::Importer::XLS>, <Catmandu::Importer::XLSX>.
-
+L<Catmandu::Exporter::CSV>, L<Catmandu::Exporter::XLS>.
 =cut
 
 1;
