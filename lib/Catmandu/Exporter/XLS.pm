@@ -1,5 +1,7 @@
 package Catmandu::Exporter::XLS;
 
+our $VERSION = '0.05';
+
 use namespace::clean;
 use Catmandu::Sane;
 use Spreadsheet::WriteExcel;
