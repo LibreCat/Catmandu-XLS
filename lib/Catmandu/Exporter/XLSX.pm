@@ -1,5 +1,7 @@
 package Catmandu::Exporter::XLSX;
 
+our $VERSION = '0.05';
+
 use namespace::clean;
 use Catmandu::Sane;
 use Excel::Writer::XLSX;
@@ -19,8 +21,6 @@ has fields => (
         return [split ',', $fields];
     },
 );
-
-our $VERSION = '0.02';
 
 sub _build_xlsx {
     my $xlsx = Excel::Writer::XLSX->new($_[0]->fh);
@@ -62,18 +62,15 @@ sub commit {
 
 Catmandu::Exporter::XLSX - a XLSX exporter
 
-=head1 VERSION
-
-Version 0.01
-
 =head1 SYNOPSIS
 
     use Catmandu::Exporter::XLSX;
 
     my $exporter = Catmandu::Exporter::XLSX->new(
-				file => 'output.xlsx',
-				fix => 'myfix.txt'
-				header => 1);
+        file => 'output.xlsx',
+        fix  => 'myfix.txt';
+        header => 1
+    );
 
     $exporter->fields("f1,f2,f3");
 
