@@ -1,5 +1,7 @@
 package Catmandu::Importer::XLS;
 
+our $VERSION = '0.05';
+
 use namespace::clean;
 use Catmandu::Sane;
 use Spreadsheet::ParseExcel;

@@ -1,5 +1,7 @@
 package Catmandu::Importer::XLSX;
 
+our $VERSION = '0.05';
+
 use namespace::clean;
 use Catmandu::Sane;
 use Encode qw(decode);
