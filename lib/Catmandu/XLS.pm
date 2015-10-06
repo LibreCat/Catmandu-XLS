@@ -4,6 +4,13 @@ package Catmandu::XLS;
 
 Catmandu::XLS - modules for working with Excel .xls and .xlsx files
 
+=begin markdown
+[![Build Status](https://travis-ci.org/LibreCat/Catmandu-XLS.png)](https://travis-ci.org/LibreCat/Catmandu-XLS)
+[![Coverage Status](https://coveralls.io/repos/LibreCat/Catmandu-XLS/badge.png?branch=devel)](https://coveralls.io/r/LibreCat/Catmandu-XLS?branch=devel)
+[![Kwalitee Score](http://cpants.cpanauthors.org/dist/Catmandu-XLS.png)](http://cpants.cpanauthors.org/dist/Catmandu-XLS)
+[![CPAN version](https://badge.fury.io/pl/Catmandu-XLS.png)](http://badge.fury.io/pl/Catmandu-XLS)
+=end markdown
+
 =cut
 
 our $VERSION = '0.05';
