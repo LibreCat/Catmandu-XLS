@@ -84,16 +84,16 @@ Catmandu::Exporter::XLSX - a XLSX exporter
 =head1 SYNOPSIS
 
     # On the command line
-    $ printf "a,b,c\n1,2,3" | catmandu convert CSV to XLSX --file test.xls
-    $ printf "a,b,c\n1,2,3" | catmandu convert CSV to XLSX --file test.xls --header 0
-    $ printf "a,b,c\n1,2,3" | catmandu convert CSV to XLSX --file test.xls --fields a,c
-    $ printf "a,b,c\n1,2,3" | catmandu convert CSV to XLSX --file test.xls --fields a,c --columns ALPHA,CHARLIE
+    $ printf "a,b,c\n1,2,3" | catmandu convert CSV to XLSX --file test.xlsx
+    $ printf "a,b,c\n1,2,3" | catmandu convert CSV to XLSX --file test.xlsx --header 0
+    $ printf "a,b,c\n1,2,3" | catmandu convert CSV to XLSX --file test.xlsx --fields a,c
+    $ printf "a,b,c\n1,2,3" | catmandu convert CSV to XLSX --file test.xlsx --fields a,c --columns ALPHA,CHARLIE
 
     # Or in Perl
     use Catmandu::Exporter::XLSX;
 
     my $exporter = Catmandu::Exporter::XLSX->new(
-                file => 'test.xls',
+                file => 'test.xlsx',
                 fields => 'a,b,c'
                 columns => 'ALPHA,BRAVO,CHARLIE'
                 header => 1);
