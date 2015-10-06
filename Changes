@@ -2,6 +2,14 @@ Revision history for Catmandu-XLS
 
 {{$NEXT}}
 
+0.06  2015-10-06 15:18:57 CEST
+  - Edit PODs
+  - Fix version
+  - Add badges
+  - Add .travis.yml
+  - Bugfix for formatted dates in XLS importer
+  - Add option columns to XLS(X) exporter
+
 0.05  2015-06-24 16:01:43 CEST
   - adding columns option
   - adding header option

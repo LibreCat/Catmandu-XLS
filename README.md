@@ -2,6 +2,11 @@
 
 Catmandu::XLS - modules for working with Excel .xls and .xlsx files
 
+[![Build Status](https://travis-ci.org/LibreCat/Catmandu-XLS.png)](https://travis-ci.org/LibreCat/Catmandu-XLS)
+[![Coverage Status](https://coveralls.io/repos/LibreCat/Catmandu-XLS/badge.png?branch=devel)](https://coveralls.io/r/LibreCat/Catmandu-XLS?branch=devel)
+[![Kwalitee Score](http://cpants.cpanauthors.org/dist/Catmandu-XLS.png)](http://cpants.cpanauthors.org/dist/Catmandu-XLS)
+[![CPAN version](https://badge.fury.io/pl/Catmandu-XLS.png)](http://badge.fury.io/pl/Catmandu-XLS)
+
 # SYNPOSIS
 
     # Convert Excel to CSV
@@ -47,5 +52,3 @@ This software is copyright (c) 2013 by Nicolas Steenlant.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
-
-1;
