@@ -98,8 +98,8 @@ Catmandu::Exporter::XLS - Package that exports XLS files
 
     my $exporter = Catmandu::Exporter::XLS->new(
                 file => 'test.xls',
-                fields => 'a,b,c'
-                columns => 'ALPHA,BRAVO,CHARLIE'
+                fields => 'a,b,c',
+                columns => 'ALPHA,BRAVO,CHARLIE',
                 header => 1);
 
     $exporter->add({a => 1, b => 2, c => 3});
@@ -136,7 +136,7 @@ comma-separated string
 
 =item columns
 
-List of custom culomn names, given as array reference or comma-separated 
+List of custom column names, given as array reference or comma-separated 
 list. 
  
 =back
