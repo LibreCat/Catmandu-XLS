@@ -32,6 +32,10 @@ $rows = $importer->to_array();
 is_deeply ($rows->[0], {A => 'Column1',B => 'Column2',C => 'Column3'}, 'XLS option header');
 is_deeply ($rows->[-1], {A => 27,C => 'Ümlaut'}, 'XLS option header');
 
+$importer = Catmandu::Importer::XLS->new( file => './t/test.xls', header => 0, worksheet => 1);
+$rows = $importer->to_array();
+is_deeply ($rows->[0], {A => 'a',B => '1'}, 'XLS option worksheet');
+
 # XLSX
 
 $importer = Catmandu::Importer::XLSX->new( file => './t/test.xlsx');
@@ -56,5 +60,9 @@ $importer = Catmandu::Importer::XLSX->new( file => './t/test.xlsx', header => 0)
 $rows = $importer->to_array();
 is_deeply ($rows->[0], {A => 'Column1',B => 'Column2',C => 'Column3'}, 'XLSX option header');
 is_deeply ($rows->[-1], {A => 27,C => 'Ümlaut'}, 'XLSX option header');
+
+$importer = Catmandu::Importer::XLSX->new( file => './t/test.xlsx', header => 0, worksheet => 1);
+$rows = $importer->to_array();
+is_deeply ($rows->[0], {A => 'a',B => '1'}, 'XLSX option worksheet');
 
 done_testing;

@@ -23,6 +23,7 @@ has fields => (
         return [split ',', $fields];
     },
 );
+has worksheet => (is => 'ro' , default => sub { 0 });
 has _n => (is => 'rw', default => sub { 0 });
 has _row_min => (is => 'rw');
 has _row_max => (is => 'rw');
@@ -54,10 +55,10 @@ sub BUILD {
 
 sub _build_xlsx {
     my ($self) = @_;
-    my $xlsx = Spreadsheet::XLSX->new( $self->file ) or die "Could not open file " . $self->file;
+    my $xlsx = Spreadsheet::XLSX->new( $self->file ) or Catmandu::Error->throw( "could not parse file \"$self->{file}\"" );
 
     # process only first worksheet
-    $xlsx = $xlsx->{Worksheet}->[0];
+    $xlsx = $xlsx->{Worksheet}->[ $self->worksheet ] or Catmandu::Error->throw("worksheet $self->{worksheet} does not exist.");
     $self->{_col_min} = $xlsx->{MinCol};
     $self->{_col_max} = $xlsx->{MaxCol};
     $self->{_row_min} = $xlsx->{MinRow};
@@ -130,6 +131,7 @@ Catmandu::Importer::XLSX - Package that imports XLSX files
     $ catmandu convert XLSX --header 0 < ./t/test.xlsx
     $ catmandu convert XLSX --fields 1,2,3 < ./t/test.xlsx
     $ catmandu convert XLSX --columns 1 < ./t/test.xlsx
+    $ catmandu convert XLSX --worksheet 1 < ./t/test.xlsx
 
     # Or in Perl
     use Catmandu::Importer::XLSX;
@@ -174,6 +176,10 @@ separated list.
 When the 'columns' option is provided, then the object fields are named as 
 column coordinates (A,B,C,...). Default: 0.
  
+=item worksheet
+
+If the Excel workbook contains more than one worksheet, you can select a specific worksheet by its index number (0,1,2,...). Default: 0.
+
 =back
 
 =head1 SEE ALSO
