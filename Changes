@@ -2,6 +2,11 @@ Revision history for Catmandu-XLS
 
 {{$NEXT}}
 
+0.07  2016-01-08 12:03:42 CET
+  - GH#15: Add option worksheet
+  - Fix coverall.io badge link
+  - Fix typo in POD
+
 0.06  2015-10-06 15:18:57 CEST
   - Edit PODs
   - Fix version
