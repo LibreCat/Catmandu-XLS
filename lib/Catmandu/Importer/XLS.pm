@@ -145,8 +145,6 @@ Catmandu::Importer::XLS - Package that imports XLS files
 
 L<Catmandu> importer for XLS files.
 
-Only the first worksheet from the Excel workbook is imported.
-
 =head1 METHODS
  
 This module inherits all methods of L<Catmandu::Importer> and by this
