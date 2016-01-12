@@ -14,8 +14,8 @@ can_ok($importer, 'each');
 my $rows = $importer->to_array();
 is_deeply ($rows->[0], {Column1 => 1,Column2 => 'a',Column3 => 0.01}, 'XLS default');
 is_deeply ($rows->[1], {Column1 => 2,Column2 => 'b',Column3 => 2.5}, 'XLS default');
-is_deeply ($rows->[5], {Column1 => 6,Column2 => 'f',Column3 => '01/01/90'}, 'XLS default');
-is_deeply ($rows->[-1], {Column1 => 27,Column3 => 'Ümlaut'}, 'XLS default');
+is_deeply ($rows->[5], {Column1 => 6,Column2 => 'f',Column3 => '01/01/90'}, 'XLS format');
+is_deeply ($rows->[-1], {Column1 => 27,Column3 => 'Ümlaut'}, 'XLS UTF-8');
 
 $importer = Catmandu::Importer::XLS->new( file => './t/test.xls', fields => 'a,b,c');
 $rows = $importer->to_array();
@@ -44,7 +44,8 @@ can_ok($importer, 'each');
 $rows = $importer->to_array();
 is_deeply ($rows->[0], {Column1 => 1,Column2 => 'a',Column3 => 0.01}, 'XLSX default');
 is_deeply ($rows->[1], {Column1 => 2,Column2 => 'b',Column3 => 2.5}, 'XLSX default');
-is_deeply ($rows->[-1], {Column1 => 27,Column3 => 'Ümlaut'}, 'XLSX default');
+is_deeply ($rows->[5], {Column1 => 6,Column2 => 'f',Column3 => '01/01/90'}, 'XLSX format');
+is_deeply ($rows->[-1], {Column1 => 27,Column3 => 'Ümlaut'}, 'XLSX UTF-8');
 
 $importer = Catmandu::Importer::XLSX->new( file => './t/test.xlsx', fields => 'a,b,c');
 $rows = $importer->to_array();

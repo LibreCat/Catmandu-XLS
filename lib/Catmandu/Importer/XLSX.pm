@@ -5,7 +5,7 @@ our $VERSION = '0.07';
 use namespace::clean;
 use Catmandu::Sane;
 use Encode qw(decode);
-use Spreadsheet::XLSX;
+use Spreadsheet::ParseXLSX;
 use Spreadsheet::ParseExcel::Utility qw(int2col);
 use Moo;
 
@@ -55,14 +55,12 @@ sub BUILD {
 
 sub _build_xlsx {
     my ($self) = @_;
-    my $xlsx = Spreadsheet::XLSX->new( $self->file ) or Catmandu::Error->throw( "could not parse file \"$self->{file}\"" );
+    my $parser   = Spreadsheet::ParseXLSX->new();
+    my $xlsx = $parser->parse( $self->file ) or  Catmandu::Error->throw("could not parse file \"$self->{file}\": " . $parser->error());
 
-    # process only first worksheet
-    $xlsx = $xlsx->{Worksheet}->[ $self->worksheet ] or Catmandu::Error->throw("worksheet $self->{worksheet} does not exist.");
-    $self->{_col_min} = $xlsx->{MinCol};
-    $self->{_col_max} = $xlsx->{MaxCol};
-    $self->{_row_min} = $xlsx->{MinRow};
-    $self->{_row_max} = $xlsx->{MaxRow};
+    $xlsx = $xlsx->worksheet($self->worksheet) or Catmandu::Error->throw("worksheet $self->{worksheet} does not exist.");
+    ($self->{_row_min}, $self->{_row_max}) = $xlsx->row_range();
+    ($self->{_col_min}, $self->{_col_max}) = $xlsx->col_range();
     return $xlsx;
 }
 
@@ -86,10 +84,10 @@ sub generator {
 sub _get_row {
     my ($self) = @_;
     my @row;
-    for my $col ( $self->_col_min .. $self->_col_max ) {
-        my $cell = $self->xlsx->{Cells}[$self->_n][$col];
+    for my $col ($self->_col_min .. $self->_col_max) {
+        my $cell = $self->xlsx->get_cell($self->_n, $col);
         if ($cell) {
-            push(@row, decode('UTF-8',$cell->{Val}));
+            push(@row,$cell->value());
         }
         else{
             push(@row, undef);            
@@ -107,9 +105,9 @@ sub _get_cols {
             push(@row,int2col($col));
         }
         else {
-            my $cell = $self->xlsx->{Cells}[$self->_n][$col];
+            my $cell = $self->xlsx->get_cell($self->_n, $col);
             if ($cell) {
-                push(@row, decode('UTF-8',$cell->{Val}));
+                push(@row,$cell->value());
             }
             else{
                 push(@row, undef);            

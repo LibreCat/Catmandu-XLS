@@ -57,7 +57,6 @@ sub _build_xls {
     my $parser   = Spreadsheet::ParseExcel->new();
     my $xls = $parser->parse( $self->file ) or  Catmandu::Error->throw("could not parse file \"$self->{file}\": " . $parser->error());
 
-    # process only first worksheet
     $xls = $xls->worksheet($self->worksheet) or Catmandu::Error->throw("worksheet $self->{worksheet} does not exist.");
     ($self->{_row_min}, $self->{_row_max}) = $xls->row_range();
     ($self->{_col_min}, $self->{_col_max}) = $xls->col_range();
