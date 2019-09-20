@@ -1,3 +1,4 @@
+requires 'Moo';
 requires 'perl', '>= 5.10.1';
 requires 'namespace::clean', '>= 0.24';
 requires 'Catmandu', '>= 0.9';
