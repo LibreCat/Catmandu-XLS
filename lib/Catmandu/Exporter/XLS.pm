@@ -1,6 +1,6 @@
 package Catmandu::Exporter::XLS;
 
-our $VERSION = '0.08';
+our $VERSION = '0.09';
 
 use namespace::clean;
 use Catmandu::Sane;

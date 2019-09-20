@@ -1,6 +1,8 @@
 Revision history for Catmandu-XLS
 
 {{$NEXT}}
+
+0.09  2019-09-20 10:00:47 CEST
   - add missing dependency
 
 0.08  2016-01-12 16:31:41 CET
