@@ -1,23 +1,33 @@
-sudo: false
 language: perl
 perl:
-    - "5.20"
-    - "5.18"
-    - "5.16"
-    - "5.14"
-    - "5.12"
+  - "5.28"
+  - "5.26"
+  - "5.24"
+  - "5.20"
+  - "5.18"
+  - "5.16"
+  - "5.14"
+  - "5.12"
+  - "5.10"
+  
+env: RELEASE_TESTING=1 AUTOMATED_TESTING=1 DEVEL_COVER=0
 
+matrix:
+  include:
+    - perl: "5.30"
+      env: DEVEL_COVER=1
+
+before_install:
+  - cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+  - cpanm --notest Perl::Tidy
+  - cpanm --notest Test::Code::TidyAll
 install:
-    - cpanm --quiet --notest --skip-satisfied Dist::Zilla
-    - dzil authordeps | grep -vP '[^\w:]' | xargs -n 5 -P 10 cpanm --quiet --notest --skip-satisfied
-    - dzil listdeps | grep -vP '[^\w:]' | cpanm --verbose --notest
-
+  - cpanm --quiet --installdeps --notest --force --skip-satisfied .
+  - if [ "$DEVEL_COVER" = "1" ]; then cpanm --quiet --notest Devel::Cover; fi
 script:
-    - dzil smoke --release --author
-
+  - if [ "$DEVEL_COVER" = "0" ]; then perl Build.PL && ./Build test; fi
+  - if [ "$DEVEL_COVER" = "1" ]; then perl Build.PL && ./Build build && cover -test; fi
 after_success:
-    - cpanm --quiet --notest --skip-satisfied Devel::Cover::Report::Coveralls
-    - cpanm --quiet --notest --skip-satisfied Dist::Zilla::App::Command::cover
-    - dzil cover -outputdir cover_db -report coveralls
-
-env: RELEASE_TESTING=1 AUTOMATED_TESTING=1 AUTHOR_TESTING=1
+  - if [ "$DEVEL_COVER" = "1" ]; then cpanm --quiet --notest --skip-satisfied Devel::Cover::Report::Coveralls; fi
+  - if [ "$DEVEL_COVER" = "1" ]; then cover -report coveralls; fi
+sudo: false

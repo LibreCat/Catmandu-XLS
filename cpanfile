@@ -1,5 +1,6 @@
 requires 'Catmandu', '>= 0.9';
 requires 'Excel::Writer::XLSX', '>= 0.77';
+requires 'Module::Build', '>=0.4229'; # travis ci
 requires 'Moo';
 requires 'Spreadsheet::ParseExcel', '>= 0.65';
 requires 'Spreadsheet::ParseXLSX';
