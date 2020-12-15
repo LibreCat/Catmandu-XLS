@@ -1,4 +1,4 @@
-requires 'Catmandu', '>= 0.9';
+requires 'Catmandu', '>= 1.00';
 requires 'Excel::Writer::XLSX', '>= 0.77';
 requires 'Module::Build', '>=0.4229'; # travis ci
 requires 'Moo';
