@@ -93,4 +93,32 @@ $importer = Catmandu::Importer::XLSX->new(
 $rows = $importer->to_array();
 is_deeply($rows->[0], {A => 'a', B => '1'}, 'XLSX option worksheet');
 
+$importer = Catmandu::Importer::XLS->new(
+    file      => './t/test2.xls',
+    empty     => 'string'
+);
+$rows = $importer->to_array();
+is_deeply($rows->[0], {A => 'X', B => '', C => 'X'}, 'empty = string');
+
+$importer = Catmandu::Importer::XLS->new(
+    file      => './t/test2.xls',
+    empty     => 'nil'
+);
+$rows = $importer->to_array();
+is_deeply($rows->[0], {A => 'X', B => undef, C => 'X'}, 'empty = nil');
+
+$importer = Catmandu::Importer::XLSX->new(
+    file      => './t/test2.xlsx',
+    empty     => 'string'
+);
+$rows = $importer->to_array();
+is_deeply($rows->[0], {A => 'X', B => '', C => 'X'}, 'empty = string');
+
+$importer = Catmandu::Importer::XLSX->new(
+    file      => './t/test2.xlsx',
+    empty     => 'nil'
+);
+$rows = $importer->to_array();
+is_deeply($rows->[0], {A => 'X', B => undef, C => 'X'}, 'empty = nil');
+
 done_testing;

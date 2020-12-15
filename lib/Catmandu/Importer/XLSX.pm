@@ -23,6 +23,7 @@ has fields => (
         return [split ',', $fields];
     },
 );
+has empty     => (is => 'ro', default => sub {undef});
 has worksheet => (is => 'ro', default => sub {0});
 has _n        => (is => 'rw', default => sub {0});
 has _row_min  => (is => 'rw');
@@ -77,7 +78,18 @@ sub generator {
             my @fields = @{$self->fields()};
             my %hash   = map {
                 my $key = shift @fields;
-                defined $_ ? ($key => $_) : ()
+                if (!$self->empty) {
+                    defined $_ ? ($key => $_) : ();
+                }
+                elsif ($self->empty eq 'string') {
+                    defined $_ ? ($key => $_) : ( $key => '');
+                }
+                elsif ($self->empty eq 'nil') {
+                    defined $_ ? ($key => $_) : ( $key => undef);
+                }
+                else {
+                    defined $_ ? ($key => $_) : ();
+                }
             } @data;
             return \%hash;
         }
@@ -149,20 +161,20 @@ Catmandu::Importer::XLSX - Package that imports XLSX files
 L<Catmandu> importer for XLSX files.
 
 =head1 METHODS
- 
+
 This module inherits all methods of L<Catmandu::Importer> and by this
 L<Catmandu::Iterable>.
- 
+
 =head1 CONFIGURATION
- 
+
 In addition to the configuration provided by L<Catmandu::Importer> (C<file>,
 C<fh>, etc.) the importer can be configured with the following parameters:
- 
+
 =over
- 
+
 =item header
 
-By default object fields are read from the XLS header line. If no header 
+By default object fields are read from the XLS header line. If no header
 line is avaiable object fields are named as column coordinates (A,B,C,...). Default: 1.
 
 =item fields
@@ -172,9 +184,15 @@ separated list.
 
 =item columns
 
-When the 'columns' option is provided, then the object fields are named as 
+When the 'columns' option is provided, then the object fields are named as
 column coordinates (A,B,C,...). Default: 0.
- 
+
+=item empty
+
+How to treat empty fields in the data. When the option value is 'string', the empty
+values will be empty strings. When the option value is 'nil', the empty values will
+get turned into undefined fields. By default empty values are ignored.
+
 =item worksheet
 
 If the Excel workbook contains more than one worksheet, you can select a specific worksheet by its index number (0,1,2,...). Default: 0.
