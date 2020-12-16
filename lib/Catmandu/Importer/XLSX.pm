@@ -14,12 +14,12 @@ with 'Catmandu::Importer';
 has xlsx    => (is => 'ro', builder => '_build_xlsx');
 has header  => (is => 'ro', default => sub {1});
 has columns => (is => 'ro', default => sub {0});
-has fields => (
+has fields  => (
     is     => 'rw',
     coerce => sub {
         my $fields = $_[0];
         if (ref $fields eq 'ARRAY') {return $fields}
-        if (ref $fields eq 'HASH') {return [sort keys %$fields]}
+        if (ref $fields eq 'HASH')  {return [sort keys %$fields]}
         return [split ',', $fields];
     },
 );
