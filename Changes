@@ -1,6 +1,7 @@
 Revision history for Catmandu-XLS
 
 {{$NEXT}}
+  - use the TabularExporter role
 
 0.09  2019-09-20 10:00:47 CEST
   - add missing dependency
@@ -39,4 +40,3 @@ Revision history for Catmandu-XLS
 
 0.02    2012-06-13
   - initial release
-

@@ -29,10 +29,10 @@ Catmandu::XLS - modules for working with Excel .xls and .xlsx files
 
 # MODULES
 
-- [Catmandu::Importer::XLS](https://metacpan.org/pod/Catmandu::Importer::XLS)
-- [Catmandu::Importer::XLSX](https://metacpan.org/pod/Catmandu::Importer::XLSX)
-- [Catmandu::Exporter::XLS](https://metacpan.org/pod/Catmandu::Exporter::XLS)
-- [Catmandu::Exporter::XLSX](https://metacpan.org/pod/Catmandu::Exporter::XLSX)
+- [Catmandu::Importer::XLS](https://metacpan.org/pod/Catmandu%3A%3AImporter%3A%3AXLS)
+- [Catmandu::Importer::XLSX](https://metacpan.org/pod/Catmandu%3A%3AImporter%3A%3AXLSX)
+- [Catmandu::Exporter::XLS](https://metacpan.org/pod/Catmandu%3A%3AExporter%3A%3AXLS)
+- [Catmandu::Exporter::XLSX](https://metacpan.org/pod/Catmandu%3A%3AExporter%3A%3AXLSX)
 
 # AUTHOR
 
