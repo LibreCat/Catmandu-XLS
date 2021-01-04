@@ -1,6 +1,8 @@
 Revision history for Catmandu-XLS
 
 {{$NEXT}}
+
+0.10  2021-01-04 11:56:00 CET
   - use the TabularExporter role
   - new empty option
 

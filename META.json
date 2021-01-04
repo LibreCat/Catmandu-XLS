@@ -63,7 +63,7 @@
          "web" : "https://github.com/LibreCat/Catmandu-XLS"
       }
    },
-   "version" : "0.09",
+   "version" : "0.10",
    "x_contributors" : [
       "Johann Rolschewski <jorol@cpan.org>",
       "Johann Rolschewski <rolschewski@gmail.com>",
