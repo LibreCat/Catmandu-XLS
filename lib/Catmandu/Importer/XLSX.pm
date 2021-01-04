@@ -24,7 +24,11 @@ has fields  => (
         return [split ',', $fields];
     },
 );
-has empty     => (is => 'ro', isa => Enum[qw(ignore string nil)], default => sub {'string'});
+has empty => (
+    is      => 'ro',
+    isa     => Enum [qw(ignore string nil)],
+    default => sub {'string'}
+);
 has worksheet => (is => 'ro', default => sub {0});
 has _n        => (is => 'rw', default => sub {0});
 has _row_min  => (is => 'rw');
