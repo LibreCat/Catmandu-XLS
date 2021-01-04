@@ -191,13 +191,15 @@ column coordinates (A,B,C,...). Default: 0.
 
 =item empty
 
-How to treat empty fields in the data. When the option value is 'string', the empty
-values will be empty strings. When the option value is 'nil', the empty values will
-get turned into undefined fields. By default empty values are ignored.
+How to treat empty fields in the data. When the option value is 'string', the
+empty values will be empty strings. When the option value is 'nil', the empty
+values will get turned into undefined fields. When the option is 'ignore', the
+empty values are ignored.  Default is 'string'.
 
 =item worksheet
 
-If the Excel workbook contains more than one worksheet, you can select a specific worksheet by its index number (0,1,2,...). Default: 0.
+If the Excel workbook contains more than one worksheet, you can select a
+specific worksheet by its index number (0,1,2,...). Default: 0.
 
 =back
 
