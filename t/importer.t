@@ -8,7 +8,7 @@ use Catmandu::Importer::XLSX;
 
 # XLS
 
-my $importer = Catmandu::Importer::XLS->new(file => './t/test.xls');
+my $importer = Catmandu::Importer::XLS->new(file => './t/test.xls', empty => 'ignore');
 isa_ok($importer, 'Catmandu::Importer::XLS');
 can_ok($importer, 'each');
 my $rows = $importer->to_array();
@@ -21,18 +21,18 @@ is_deeply($rows->[5], {Column1 => 6, Column2 => 'f', Column3 => '01/01/90'},
 is_deeply($rows->[-1], {Column1 => 27, Column3 => 'Ümlaut'}, 'XLS UTF-8');
 
 $importer
-    = Catmandu::Importer::XLS->new(file => './t/test.xls', fields => 'a,b,c');
+    = Catmandu::Importer::XLS->new(file => './t/test.xls', fields => 'a,b,c', empty => 'ignore');
 $rows = $importer->to_array();
 is_deeply($rows->[0], {a => 1, b => 'a', c => 0.01}, 'XLS option fields');
 is_deeply($rows->[-1], {a => 27, c => 'Ümlaut'}, 'XLS option fields');
 
 $importer
-    = Catmandu::Importer::XLS->new(file => './t/test.xls', columns => 1);
+    = Catmandu::Importer::XLS->new(file => './t/test.xls', columns => 1, empty => 'ignore');
 $rows = $importer->to_array();
 is_deeply($rows->[0], {A => 1, B => 'a', C => 0.01}, 'XLS option columns');
 is_deeply($rows->[-1], {A => 27, C => 'Ümlaut'}, 'XLS option columns');
 
-$importer = Catmandu::Importer::XLS->new(file => './t/test.xls', header => 0);
+$importer = Catmandu::Importer::XLS->new(file => './t/test.xls', header => 0, empty => 'ignore');
 $rows     = $importer->to_array();
 is_deeply(
     $rows->[0],
@@ -51,7 +51,7 @@ is_deeply($rows->[0], {A => 'a', B => '1'}, 'XLS option worksheet');
 
 # XLSX
 
-$importer = Catmandu::Importer::XLSX->new(file => './t/test.xlsx');
+$importer = Catmandu::Importer::XLSX->new(file => './t/test.xlsx', empty => 'ignore');
 isa_ok($importer, 'Catmandu::Importer::XLSX');
 can_ok($importer, 'each');
 $rows = $importer->to_array();
@@ -64,19 +64,19 @@ is_deeply($rows->[5], {Column1 => 6, Column2 => 'f', Column3 => '01/01/90'},
 is_deeply($rows->[-1], {Column1 => 27, Column3 => 'Ümlaut'}, 'XLSX UTF-8');
 
 $importer = Catmandu::Importer::XLSX->new(file => './t/test.xlsx',
-    fields => 'a,b,c');
+    fields => 'a,b,c', empty => 'ignore');
 $rows = $importer->to_array();
 is_deeply($rows->[0], {a => 1, b => 'a', c => 0.01}, 'XLSX option fields');
 is_deeply($rows->[-1], {a => 27, c => 'Ümlaut'}, 'XLSX option fields');
 
 $importer
-    = Catmandu::Importer::XLSX->new(file => './t/test.xlsx', columns => 1);
+    = Catmandu::Importer::XLSX->new(file => './t/test.xlsx', columns => 1, empty => 'ignore');
 $rows = $importer->to_array();
 is_deeply($rows->[0], {A => 1, B => 'a', C => 0.01}, 'XLSX option columns');
 is_deeply($rows->[-1], {A => 27, C => 'Ümlaut'}, 'XLSX option columns');
 
 $importer
-    = Catmandu::Importer::XLSX->new(file => './t/test.xlsx', header => 0);
+    = Catmandu::Importer::XLSX->new(file => './t/test.xlsx', header => 0, empty => 'ignore');
 $rows = $importer->to_array();
 is_deeply(
     $rows->[0],

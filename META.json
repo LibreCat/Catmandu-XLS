@@ -4,7 +4,7 @@
       "Nicolas Steenlant, C<< <nicolas.steenlant at ugent.be> >>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Milla version v1.0.20, Dist::Zilla version 6.008, CPAN::Meta::Converter version 2.150005",
+   "generated_by" : "Dist::Milla version v1.0.20, Dist::Zilla version 6.012, CPAN::Meta::Converter version 2.150010",
    "license" : [
       "perl_5"
    ],
@@ -44,6 +44,7 @@
             "Spreadsheet::ParseExcel" : "0.65",
             "Spreadsheet::ParseXLSX" : "0",
             "Spreadsheet::WriteExcel" : "2.37",
+            "Type::Tiny" : "1.002001",
             "XML::LibXML::Reader" : "2.0",
             "namespace::clean" : "0.24",
             "perl" : "v5.10.1"

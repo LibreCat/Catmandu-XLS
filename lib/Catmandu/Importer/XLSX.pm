@@ -5,6 +5,7 @@ our $VERSION = '0.09';
 use namespace::clean;
 use Catmandu::Sane;
 use Encode qw(decode);
+use Types::Standard qw(Enum);
 use Spreadsheet::ParseXLSX;
 use Spreadsheet::ParseExcel::Utility qw(int2col);
 use Moo;
@@ -23,7 +24,7 @@ has fields  => (
         return [split ',', $fields];
     },
 );
-has empty     => (is => 'ro', default => sub {undef});
+has empty     => (is => 'ro', isa => Enum[qw(ignore string nil)], default => sub {'string'});
 has worksheet => (is => 'ro', default => sub {0});
 has _n        => (is => 'rw', default => sub {0});
 has _row_min  => (is => 'rw');
@@ -78,17 +79,18 @@ sub generator {
             my @fields = @{$self->fields()};
             my %hash   = map {
                 my $key = shift @fields;
-                if (!$self->empty) {
-                    defined $_ ? ($key => $_) : ();
+
+                if (defined $_) {
+                    ($key => $_);
+                }
+                elsif ($self->empty eq 'ignore') {
+                    ();
                 }
                 elsif ($self->empty eq 'string') {
-                    defined $_ ? ($key => $_) : ( $key => '');
+                    ($key => '');
                 }
                 elsif ($self->empty eq 'nil') {
-                    defined $_ ? ($key => $_) : ( $key => undef);
-                }
-                else {
-                    defined $_ ? ($key => $_) : ();
+                    ($key => undef);
                 }
             } @data;
             return \%hash;
