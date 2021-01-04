@@ -44,6 +44,7 @@
             "Spreadsheet::ParseExcel" : "0.65",
             "Spreadsheet::ParseXLSX" : "0",
             "Spreadsheet::WriteExcel" : "2.37",
+            "Type::Tiny" : "1.002001",
             "XML::LibXML::Reader" : "2.0",
             "namespace::clean" : "0.24",
             "perl" : "v5.10.1"
