@@ -1,6 +1,7 @@
 Revision history for Catmandu-XLS
 
 {{$NEXT}}
+  - Catmandu::Exporter::XLSX: mark all fields with format '@' so that no fields are formatted unexpectedly (like numbers)
 
 0.10  2021-01-04 11:56:00 CET
   - use the TabularExporter role
