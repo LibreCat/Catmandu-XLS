@@ -9,9 +9,9 @@ use Moo;
 
 with 'Catmandu::TabularExporter';
 
-has xls       => (is => 'ro', lazy => 1, builder => '_build_xls');
-has worksheet => (is => 'ro', lazy => 1, builder => '_build_worksheet');
-has _n => (is => 'rw', default => sub {0});
+has xls       => (is => 'ro', lazy    => 1, builder => '_build_xls');
+has worksheet => (is => 'ro', lazy    => 1, builder => '_build_worksheet');
+has _n        => (is => 'rw', default => sub {0});
 
 sub BUILD {
     my $self    = shift;

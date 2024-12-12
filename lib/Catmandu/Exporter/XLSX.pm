@@ -9,9 +9,9 @@ use Moo;
 
 with 'Catmandu::TabularExporter';
 
-has xlsx      => (is => 'ro', lazy => 1, builder => '_build_xlsx');
-has worksheet => (is => 'ro', lazy => 1, builder => '_build_worksheet');
-has _n => (is => 'rw', default => sub {0});
+has xlsx        => (is => 'ro',   lazy => 1, builder => '_build_xlsx');
+has worksheet   => (is => 'ro',   lazy => 1, builder => '_build_worksheet');
+has _n          => (is => 'rw',   default  => sub {0});
 has _num_format => (is => 'lazy', init_arg => undef);
 
 sub BUILD {
@@ -42,7 +42,7 @@ sub encoding {':raw'}
 
 sub add {
     my ($self, $data) = @_;
-    my $fields = $self->fields || $self->fields([sort keys %$data]);
+    my $fields     = $self->fields || $self->fields([sort keys %$data]);
     my $num_format = $self->_num_format;
 
     if ($self->header && $self->_n == 0) {
@@ -52,7 +52,8 @@ sub add {
             # keep for backward compatibility (header could be a hashref)
             $field = $self->header->{$field}
                 if ref $self->header && defined $self->header->{$field};
-            $self->worksheet->write_string($self->_n, $i, $field, $num_format);
+            $self->worksheet->write_string($self->_n, $i, $field,
+                $num_format);
         }
         $self->{_n}++;
     }

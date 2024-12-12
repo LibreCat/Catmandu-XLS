@@ -4,7 +4,7 @@ our $VERSION = '0.11';
 
 use namespace::clean;
 use Catmandu::Sane;
-use Encode qw(decode);
+use Encode          qw(decode);
 use Types::Standard qw(Enum);
 use Spreadsheet::ParseXLSX;
 use Spreadsheet::ParseExcel::Utility qw(int2col);
@@ -15,7 +15,7 @@ with 'Catmandu::Importer';
 has xlsx    => (is => 'ro', builder => '_build_xlsx');
 has header  => (is => 'ro', default => sub {1});
 has columns => (is => 'ro', default => sub {0});
-has fields  => (
+has fields => (
     is     => 'rw',
     coerce => sub {
         my $fields = $_[0];

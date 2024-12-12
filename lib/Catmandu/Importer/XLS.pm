@@ -14,7 +14,7 @@ with 'Catmandu::Importer';
 has xls     => (is => 'ro', builder => '_build_xls');
 has header  => (is => 'ro', default => sub {1});
 has columns => (is => 'ro', default => sub {0});
-has fields  => (
+has fields => (
     is     => 'rw',
     coerce => sub {
         my $fields = $_[0];
