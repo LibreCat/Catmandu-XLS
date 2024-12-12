@@ -12,7 +12,7 @@ with 'Catmandu::TabularExporter';
 has xlsx      => (is => 'ro', lazy => 1, builder => '_build_xlsx');
 has worksheet => (is => 'ro', lazy => 1, builder => '_build_worksheet');
 has _n => (is => 'rw', default => sub {0});
-has num_format => (is => 'lazy', init_arg => undef);
+has _num_format => (is => 'lazy', init_arg => undef);
 
 sub BUILD {
     my $self    = shift;
@@ -30,7 +30,7 @@ sub _build_xlsx {
     $xlsx;
 }
 
-sub _build_num_format {
+sub _build__num_format {
     $_[0]->xlsx->add_format(num_format => '@');
 }
 
@@ -43,7 +43,7 @@ sub encoding {':raw'}
 sub add {
     my ($self, $data) = @_;
     my $fields = $self->fields || $self->fields([sort keys %$data]);
-    my $num_format = $self->num_format;
+    my $num_format = $self->_num_format;
 
     if ($self->header && $self->_n == 0) {
         for (my $i = 0; $i < @$fields; $i++) {
